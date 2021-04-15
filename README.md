@@ -1,15 +1,15 @@
-# Crowsat
+# Ravensat
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/crowsat`. To experiment with that code, run `bin/console` for an interactive prompt.
+Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ravensat`. To experiment with that code, run `bin/console` for an interactive prompt.
 
 TODO: Delete this and the text above, and describe your gem
 
-## Installation
+## Installation(Not implemented)
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'crowsat'
+gem 'ravensat'
 ```
 
 And then execute:
@@ -18,13 +18,29 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install crowsat
+    $ gem install ravensat
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'ravensat'
 
-## Development
+a = Ravensat::PropVar.new
+b = Ravensat::PropVar.new
+
+a.value #=> nil
+b.value #=> nil
+
+logic = (a | b) & (~a | b) & (a | ~b)
+
+solver = Ravensat::Solver.new
+solver.solve logic #=> true(SAT)
+
+a.value #=> true
+b.value #=> true
+```
+
+## Development(Not implemented)
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
@@ -32,7 +48,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/crowsat.
+Bug reports and pull requests are welcome on GitHub at https://github.com/matsuda0528/ravensat.
 
 ## License
 
