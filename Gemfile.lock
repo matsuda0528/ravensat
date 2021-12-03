@@ -35,11 +35,11 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  ravensat!
   pry
   pry-byebug
   rake (~> 13.0)
+  ravensat!
   rspec (~> 3.0)
 
 BUNDLED WITH
-   2.2.15
+   2.2.24
