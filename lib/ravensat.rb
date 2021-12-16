@@ -9,6 +9,7 @@ module Ravensat
   autoload :Solver, ravensat + '/solver.rb'
   autoload :PropVar, ravensat + '/prop_var.rb'
   autoload :PropLogic, ravensat + '/prop_logic.rb'
+  autoload :RavenClaw, ravensat + '/ravenclaw.rb'
 
   autoload :Arcteryx, arcteryx + '/arcteryx.rb'
 end
