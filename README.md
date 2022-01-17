@@ -1,10 +1,11 @@
 # Ravensat
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ravensat`. To experiment with that code, run `bin/console` for an interactive prompt.
+Ravensat is an interface to SAT Solver .
+In order to use Ravensat, you need to install SAT Solver and specify the name of the Solver .
+(If you do not specify SAT Solver, it will use the one bundled in the gem .)
 
-TODO: Delete this and the text above, and describe your gem
 
-## Installation(Not implemented)
+## Installation
 
 Add this line to your application's Gemfile:
 
@@ -40,7 +41,7 @@ a.value #=> true
 b.value #=> true
 ```
 
-## Development(Not implemented)
+## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
