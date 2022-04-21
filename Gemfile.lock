@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ravensat (0.1.0)
+    ravensat (0.1.1)
 
 GEM
   remote: https://rubygems.org/
