@@ -30,5 +30,14 @@ module Ravensat
     def to_s
       self.class.name
     end
+
+    def cnf?
+      and_node_flag = false
+      self.each do |node|
+        return false if and_node_flag && AndNode === node
+        and_node_flag = true if !(AndNode === node)
+      end
+      true
+    end
   end
 end
