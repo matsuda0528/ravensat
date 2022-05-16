@@ -9,6 +9,7 @@ module Ravensat
 
   autoload :Solver, ravensat + '/solver.rb'
   autoload :DimacsEncoder, ravensat + '/dimacs_encoder.rb'
+  autoload :DimacsDecoder, ravensat + '/dimacs_decoder.rb'
   autoload :RavenClaw, ravensat + '/ravenclaw.rb'
 
   autoload :Node, ast + '/node.rb'
