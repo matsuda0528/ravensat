@@ -39,5 +39,9 @@ module Ravensat
       end
       true
     end
+
+    def vars
+      self.select{|i| VarNode === i}.uniq
+    end
   end
 end
