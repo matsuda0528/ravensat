@@ -2,6 +2,7 @@ module Ravensat
   class Node
     include Enumerable
 
+    attr_reader :children
     def initialize
       @children = []
     end
@@ -32,12 +33,7 @@ module Ravensat
     end
 
     def cnf?
-      and_node_flag = false
-      self.each do |node|
-        return false if and_node_flag && node.is_a?(AndNode)
-        and_node_flag = true if !(node.is_a? AndNode)
-      end
-      true
+      @children.map(&:cnf?).reduce(:&)
     end
 
     def vars

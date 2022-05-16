@@ -8,5 +8,9 @@ module Ravensat
     def ~@
       NotNode.new(self)
     end
+
+    def cnf?
+      true
+    end
   end
 end
