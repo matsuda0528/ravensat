@@ -8,6 +8,7 @@ module Ravensat
   arcteryx = File.dirname(__FILE__) + '/arcteryx'
 
   autoload :Solver, ravensat + '/solver.rb'
+  autoload :DimacsEncoder, ravensat + '/dimacs_encoder.rb'
   autoload :RavenClaw, ravensat + '/ravenclaw.rb'
 
   autoload :Node, ast + '/node.rb'
