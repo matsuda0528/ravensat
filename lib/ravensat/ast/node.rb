@@ -34,14 +34,22 @@ module Ravensat
     def cnf?
       and_node_flag = false
       self.each do |node|
-        return false if and_node_flag && AndNode === node
-        and_node_flag = true if !(AndNode === node)
+        return false if and_node_flag && node.is_a?(AndNode)
+        and_node_flag = true if !(node.is_a? AndNode)
       end
       true
     end
 
     def vars
-      self.select{|i| VarNode === i}.uniq
+      self.select{|node| node.is_a? VarNode}.uniq
+    end
+
+    def vars_size
+      self.vars.size
+    end
+
+    def clauses_size
+      self.count{|node| node.is_a? AndNode} + 1
     end
   end
 end
