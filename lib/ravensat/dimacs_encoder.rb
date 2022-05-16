@@ -14,16 +14,16 @@ module Ravensat
         when AndNode
         when OrNode then dimacs_body << "\n"
         when NotNode then dimacs_body << "-"
-        when VarNode then dimacs_body << @name_table[node]
+        when VarNode then dimacs_body << @name_table[node] << " "
         end
-        dimacs_body << " "
       end
+
+      dimacs_body.gsub!(/\n{2,}/, "\n").gsub!(/\n/, "0\n") << '0'
 
       dimacs_header + dimacs_body
     end
 
     def create_table(formula)
-      # @name_table = formula.vars.zip((1..formula.vars.size).to_a.map{|e| e.to_s}).to_h
       @name_table = formula.vars.zip((1..formula.vars.size).map(&:to_s)).to_h
     end
   end
