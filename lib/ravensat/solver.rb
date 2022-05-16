@@ -15,10 +15,11 @@ module Ravensat
     # end
 
     def solve( cnf )
+      encoder = DimacsEncoder.new
       @input_file = Tempfile.open(["ravensat",".cnf"])
       @output_file = Tempfile.open(["ravensat",".mdl"])
 
-      @input_file.write cnf.to_dimacs
+      @input_file.write encoder.to_dimacs(cnf)
       @input_file.flush
 
       case @name
@@ -28,18 +29,9 @@ module Ravensat
         system("#{@name} #{@input_file.to_path} #{@output_file.to_path}")
       end
 
+      decoder = DimacsDecoder.new
       model = @output_file.read.split("\n")
-
-      case model.first
-      when "SAT"
-        model.last.split.each do |e|
-          next if e == '0'
-          cnf.name_table.find{|key,value| value == e.to_i.abs.to_s}.first.value = !e.start_with?('-')
-        end
-        Arcteryx::SAT
-      when "UNSAT"
-        Arcteryx::UNSAT
-      end
+      decoder.decode(model, encoder.name_table)
     end
 
   end
