@@ -1,6 +1,8 @@
 module Ravensat
   class DimacsEncoder
+    attr_reader :name_table
     def initialize
+      @name_table = {}
     end
 
     def to_dimacs(formula)

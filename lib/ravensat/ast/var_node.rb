@@ -1,5 +1,6 @@
 module Ravensat
   class VarNode < Node
+    attr_accessor :value
     def initialize
       @value
       @children = []
