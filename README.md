@@ -26,8 +26,8 @@ Or install it yourself as:
 ```ruby
 require 'ravensat'
 
-a = Ravensat::PropVar.new
-b = Ravensat::PropVar.new
+a = Ravensat::VarNode.new
+b = Ravensat::VarNode.new
 
 a.value #=> nil
 b.value #=> nil
