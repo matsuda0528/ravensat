@@ -7,17 +7,12 @@ module Ravensat
   ast = File.dirname(__FILE__) + '/ravensat/ast'
   arcteryx = File.dirname(__FILE__) + '/arcteryx'
 
-  autoload :Solver, ravensat + '/solver.rb'
-  autoload :DimacsEncoder, ravensat + '/dimacs_encoder.rb'
-  autoload :DimacsDecoder, ravensat + '/dimacs_decoder.rb'
-  autoload :RavenClaw, ravensat + '/ravenclaw.rb'
+  require_relative ravensat + "/ast.rb"
+  require_relative ravensat + "/dimacs.rb"
 
-  autoload :Node, ast + '/node.rb'
-  autoload :VarNode, ast + '/var_node.rb'
-  autoload :OprNode, ast + '/opr_node.rb'
-  autoload :AndNode, ast + '/and_node.rb'
-  autoload :OrNode, ast + '/or_node.rb'
-  autoload :NotNode, ast + '/not_node.rb'
+  autoload :Solver, ravensat + '/solver.rb'
+  autoload :RavenClaw, ravensat + '/ravenclaw.rb'
+  autoload :Extension, ravensat + '/extension.rb'
 
   autoload :Arcteryx, arcteryx + '/arcteryx.rb'
 end
