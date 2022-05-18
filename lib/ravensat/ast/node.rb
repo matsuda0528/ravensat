@@ -14,6 +14,17 @@ module Ravensat
       end
     end
 
+    def each_with_clause
+      case self
+      when OprNode
+        @children.first.each_with_clause{|c| yield(c)}
+        yield(self)
+        @children.last.each_with_clause{|c| yield(c)}
+      when VarNode
+        yield(self)
+      end
+    end
+
     def &(object)
       AndNode.new(self, object)
     end
