@@ -32,6 +32,15 @@ module Ravensat
         result_formula &= Ravensat::RavenClaw.amo @var_nodes.values
         result_formula
       end
+
+      def result
+        result = @var_nodes.select{|key, var_node| var_node.value}.keys
+        if result.one?
+          result.first
+        else
+          result
+        end
+      end
     end
   end
 end
