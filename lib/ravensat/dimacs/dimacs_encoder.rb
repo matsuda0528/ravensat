@@ -22,7 +22,9 @@ module Ravensat
 
       # dimacs_body formatting
       dimacs_body.strip! << ' '
-      dimacs_body.gsub!(/\n{2,}/, "\n").gsub!(/\n/, "0\n") << '0'
+      dimacs_body.gsub!(/\n{2,}/, "\n") if dimacs_body.match(/\n{2,}/)
+      dimacs_body.gsub!(/\n/, "0\n") if dimacs_body.match(/\n/)
+      dimacs_body << '0'
 
       dimacs_header + dimacs_body
     end
