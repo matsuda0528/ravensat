@@ -11,20 +11,15 @@ module Ravensat
       dimacs_header = "p cnf #{formula.vars_size} #{formula.clauses_size}\n"
       dimacs_body = ""
       create_table(formula)
-      formula.each do |node|
+      formula.each_with_clause do |node|
         case node
-        when AndNode
-        when OrNode then dimacs_body << "\n"
+        when AndNode then dimacs_body << " 0\n"
+        when OrNode then dimacs_body << " "
         when NotNode then dimacs_body << "-"
-        when VarNode then dimacs_body << @name_table[node] << " "
+        when VarNode then dimacs_body << @name_table[node]
         end
       end
-
-      # dimacs_body formatting
-      dimacs_body.strip! << ' '
-      dimacs_body.gsub!(/\n{2,}/, "\n") if dimacs_body.match(/\n{2,}/)
-      dimacs_body.gsub!(/\n/, "0\n") if dimacs_body.match(/\n/)
-      dimacs_body << '0'
+      dimacs_body << " 0\n"
 
       dimacs_header + dimacs_body
     end
