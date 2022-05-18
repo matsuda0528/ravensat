@@ -16,10 +16,13 @@ module Ravensat
 
     def each_with_clause
       case self
-      when OprNode
+      when AndNode, OrNode
         @children.first.each_with_clause{|c| yield(c)}
         yield(self)
         @children.last.each_with_clause{|c| yield(c)}
+      when NotNode
+        yield(self)
+        @children.first.each_with_clause{|c| yield(c)}
       when VarNode
         yield(self)
       end
