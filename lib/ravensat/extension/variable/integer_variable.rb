@@ -26,6 +26,23 @@ module Ravensat
         end
       end
 
+      def !=(object)
+        case object
+        when Integer
+          return ~(@var_nodes[object])
+        when IntegerVariable
+          result_formula = Ravensat::InitialNode.new
+          duplicated_keys = self.var_nodes.keys & object.var_nodes.keys
+
+          duplicated_keys.each do |index|
+            result_formula &= ~(self.var_nodes[index]) | ~(object.var_nodes[index])
+          end
+          return result_formula
+        else
+          raise ArgumentError
+        end
+      end
+
       def only_one
         result_formula = Ravensat::InitialNode.new
         result_formula &= Ravensat::RavenClaw.alo @var_nodes.values
