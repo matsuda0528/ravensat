@@ -22,7 +22,7 @@ Or install it yourself as:
     $ gem install ravensat
 
 ## Usage
-
+### General Usage
 ```ruby
 require 'ravensat'
 
@@ -39,6 +39,42 @@ solver.solve logic #=> true(SAT)
 
 a.value #=> true
 b.value #=> true
+```
+
+### Extension Usage(SAT)
+```ruby
+require 'ravensat'
+
+module Ravensat
+  module Extension
+    bool a, b
+    logic = (a | b) & (~a | b) & (a | ~b)
+
+    solver = Ravensat::Solver.new
+    solver.solve logic #=> true
+
+    a.value #=> true
+    b.value #=> true
+  end
+end
+```
+
+### Extension Usage(CSP; Constraint Satisfaction Problem)
+```ruby
+require 'ravensat'
+
+module Ravensat
+  module Extension
+    int a(1..10), b(1..10)
+    constraint = (a.only_one & b.only_one & (a != b))
+
+    solver = Ravensat::Solver.new
+    solver.solve constraint #=> true
+
+    a.result #=> 1
+    b.result #=> 2
+  end
+end
 ```
 
 ## Development
