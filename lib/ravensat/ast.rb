@@ -7,4 +7,5 @@ module Ravensat
   autoload :AndNode, dir + '/and_node.rb'
   autoload :OrNode, dir + '/or_node.rb'
   autoload :NotNode, dir + '/not_node.rb'
+  autoload :InitialNode, dir + '/initial_node.rb'
 end
