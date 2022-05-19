@@ -3,9 +3,11 @@
 [![Ruby](https://github.com/matsuda0528/ravensat/actions/workflows/main.yml/badge.svg)](https://github.com/matsuda0528/ravensat/actions/workflows/main.yml)
 [![Gem Version](https://badge.fury.io/rb/ravensat.svg)](https://badge.fury.io/rb/ravensat)
 
-Ravensat is an interface to SAT Solver in Ruby.
-In order to use Ravensat, you need to install SAT Solver.
-(If you do not install SAT Solver, it will use the one bundled in the gem.)
+Ravensat is an interface to SAT solver in Ruby.
+In order to use Ravensat, you need to install SAT solver.
+(If you do not install SAT solver, it will use the one bundled in the gem.)
+
+About [SAT](https://en.wikipedia.org/wiki/Boolean_satisfiability_problem), [SAT solver](https://en.wikipedia.org/wiki/SAT_solver)
 
 
 ## Installation
@@ -40,7 +42,7 @@ b.value #=> nil
 # Generate logical expressions as CNF
 logic = (a | b) & (~a | b) & (a | ~b)
 
-# Launch Solver
+# Launch SAT solver
 solver = Ravensat::Solver.new
 solver.solve logic #=> true(SAT)
 
@@ -49,17 +51,17 @@ a.value #=> true
 b.value #=> true
 ```
 
-If you have Solver installed, you can write:
+If you have SAT solver installed, you can write:
 ```ruby
-# Launch Solver
+# Launch SAT solver
 solver = Ravensat::Solver.new("<solver_name>")
 solver.solve logic
 ```
 The available solvers are assumed to be those that can be I/O in the DIMACS Format.
 At least, we have confirmed that it works properly with [MiniSat](https://github.com/niklasso/minisat).
 
-If you do not use an external Solver, create a Solver object without any constructor arguments.
-In that case, **Arcteryx**(the very simple Sat Solver built into Ravensat) will launch.
+If you do not use an external SAT solver, create a SAT solver object without any constructor arguments.
+In that case, **Arcteryx**(the very simple SAT solver built into Ravensat) will launch.
 
 ### Extension Usage
 In Ravensat::Extension, C-like variable definitions are available.
