@@ -1,8 +1,8 @@
 # Ravensat
 
-Ravensat is an interface to SAT Solver .
-In order to use Ravensat, you need to install SAT Solver and specify the name of the Solver .
-(If you do not specify SAT Solver, it will use the one bundled in the gem .)
+Ravensat is an interface to SAT Solver in Ruby.
+In order to use Ravensat, you need to install SAT Solver.
+(If you do not install SAT Solver, it will use the one bundled in the gem.)
 
 
 ## Installation
@@ -22,26 +22,47 @@ Or install it yourself as:
     $ gem install ravensat
 
 ## Usage
-### General Usage
+### Basic Usage
+This is a basic usage example of the library.
 ```ruby
 require 'ravensat'
 
+# Define propositional variables
 a = Ravensat::VarNode.new
 b = Ravensat::VarNode.new
 
 a.value #=> nil
 b.value #=> nil
 
+# Generate logical expressions as CNF
 logic = (a | b) & (~a | b) & (a | ~b)
 
+# Launch Solver
 solver = Ravensat::Solver.new
 solver.solve logic #=> true(SAT)
 
+# Refer to the satisfiability
 a.value #=> true
 b.value #=> true
 ```
 
-### Extension Usage(SAT)
+If you have Solver installed, you can write:
+```ruby
+# Launch Solver
+solver = Ravensat::Solver.new("<solver_name>")
+solver.solve logic
+```
+The available solvers are assumed to be those that can be I/O in the DIMACS Format.
+At least, we have confirmed that it works properly with [MiniSat](https://github.com/niklasso/minisat).
+
+If you do not use an external Solver, create a Solver object without any constructor arguments.
+In that case, **Arcteryx**(the very simple Sat Solver built into Ravensat) will launch.
+
+### Extension Usage
+In Ravensat::Extension, C-like variable definitions are available.
+
+*Note: In Ravensat::Extension, all undefined variables and methods are caught by method_missing method.*
+
 ```ruby
 require 'ravensat'
 
@@ -60,6 +81,7 @@ end
 ```
 
 ### Extension Usage(CSP; Constraint Satisfaction Problem)
+It is possible to define integer variables and to describe some integer constraints.
 ```ruby
 require 'ravensat'
 
