@@ -2,13 +2,49 @@
 
 [![Ruby](https://github.com/matsuda0528/ravensat/actions/workflows/main.yml/badge.svg)](https://github.com/matsuda0528/ravensat/actions/workflows/main.yml)
 [![Gem Version](https://badge.fury.io/rb/ravensat.svg)](https://badge.fury.io/rb/ravensat)
-![LICENSE](https://img.shields.io/github/license/matsuda0528/ravensat)
+[![LICENSE](https://img.shields.io/github/license/matsuda0528/ravensat)](https://opensource.org/licenses/MIT)
 
 Ravensat is an interface to SAT solver in Ruby.
+
 In order to use Ravensat, you need to install SAT solver.
-(If you do not install SAT solver, it will use the one bundled in the gem.)
+If you do not install SAT solver, it will use the one bundled in the gem.
 
 About [SAT](https://en.wikipedia.org/wiki/Boolean_satisfiability_problem), [SAT solver](https://en.wikipedia.org/wiki/SAT_solver)
+
+## Description
+To solve SAT, we usually use SAT solver.
+Now, let's solve the following SAT with SAT solver.
+<p align="center">
+<img src="https://latex.codecogs.com/svg.image?\inline&space;\large&space;\bg{white}(1&space;\lor&space;\lnot&space;5&space;\lor&space;4)&space;\land&space;(\lnot&space;1&space;\lor&space;5&space;\lor&space;3&space;\lor&space;4)&space;\land&space;(\lnot&space;3&space;\lor&space;\lnot&space;4)" style="background-color:white;"/>
+</p>
+
+Most SAT solvers are input in [DIMACS Format](https://www.cs.utexas.edu/users/moore/acl2/manuals/current/manual/index-seo.php/SATLINK____DIMACS).
+Converting the example SAT to DIMACS Format yields the following.
+
+```DIMACS Format
+p cnf 5 3
+1 -5 4 0
+-1 5 3 4 0
+-3 -4 0
+```
+DIMACS Format is widely distributed as an I/O format for SAT solver.
+However, when solving a large SAT, the following problems occur.
+- Need to create a file with thousands of lines.
+- Confusion arises because of the inability to name variables meaningfully.
+
+To solve these problems, Ravensat can be used.
+Using Ravensat, propositional variables can be defined as local variables in Ruby.
+```ruby
+fuji_is_the_highest_mountain_in_japan = Ravensat::VarNode.new
+```
+In addition, you can write logical expressions intuitively.
+```ruby
+x = Ravensat::VarNode.new
+y = Ravensat::VarNode.new
+
+# (x or y) and (not x or y)
+(x | y) & (~x | y)
+```
 
 
 ## Installation
