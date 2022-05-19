@@ -1,5 +1,7 @@
 # Ravensat
 
+[![Gem Version](https://badge.fury.io/rb/ravensat.svg)](https://badge.fury.io/rb/ravensat)
+
 Ravensat is an interface to SAT Solver in Ruby.
 In order to use Ravensat, you need to install SAT Solver.
 (If you do not install SAT Solver, it will use the one bundled in the gem.)
