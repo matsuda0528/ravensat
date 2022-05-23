@@ -5,14 +5,7 @@ module Ravensat
     attr_accessor :name
     def initialize( default_solver_name = "arcteryx" )
       @name = default_solver_name
-      # @cnf = Array.new
-      # @nr_vars
-      # @nr_clses
     end
-
-    # def <<( clause )
-    #   'this is << method'
-    # end
 
     def solve( cnf )
       encoder = DimacsEncoder.new

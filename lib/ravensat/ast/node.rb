@@ -36,12 +36,6 @@ module Ravensat
       OrNode.new(self, object)
     end
 
-    # def tree_text
-    #   self.each do |child|
-    #     child.to_s
-    #   end
-    # end
-
     def to_s
       self.class.name
     end

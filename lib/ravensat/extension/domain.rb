@@ -12,7 +12,6 @@ module Ravensat
       def bool(*vars)
         vars.each do |var|
           next if var.is_defined?
-          # LOCAL_VARIABLE_TABLE[var.name] = Ravensat::VarNode.new
           LOCAL_VARIABLE_TABLE[var.name] = Ravensat::Extension::BooleanVariable.new(var.name, var.args)
         end
       end
