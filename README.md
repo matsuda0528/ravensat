@@ -14,9 +14,11 @@ About [SAT](https://en.wikipedia.org/wiki/Boolean_satisfiability_problem), [SAT 
 ## Description
 To solve SAT, we usually use SAT solver.
 Now, let's solve the following SAT with SAT solver.
-<p align="center">
-<img src="https://latex.codecogs.com/svg.image?\inline&space;\large&space;\bg{white}(1&space;\lor&space;\lnot&space;5&space;\lor&space;4)&space;\land&space;(\lnot&space;1&space;\lor&space;5&space;\lor&space;3&space;\lor&space;4)&space;\land&space;(\lnot&space;3&space;\lor&space;\lnot&space;4)" style="background-color:white;"/>
-</p>
+
+$$(p_{1} \lor \lnot p_{5} \lor p_{4}) \land (\lnot p_{1} \lor p_{5} \lor p_{3} \lor p_{4}) \land (\lnot p_{3} \lor \lnot p_{4})$$
+<!-- <p align="center"> -->
+<!-- <img src="https://latex.codecogs.com/svg.image?\inline&space;\large&space;\bg{white}(1&space;\lor&space;\lnot&space;5&space;\lor&space;4)&space;\land&space;(\lnot&space;1&space;\lor&space;5&space;\lor&space;3&space;\lor&space;4)&space;\land&space;(\lnot&space;3&space;\lor&space;\lnot&space;4)" style="background-color:white;"/> -->
+<!-- </p> -->
 
 Most SAT solvers are input in [DIMACS Format](https://www.cs.utexas.edu/users/moore/acl2/manuals/current/manual/index-seo.php/SATLINK____DIMACS).
 Converting the example SAT to DIMACS Format yields the following.
