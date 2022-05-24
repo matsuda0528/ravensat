@@ -73,8 +73,8 @@ require 'ravensat'
 a = Ravensat::VarNode.new
 b = Ravensat::VarNode.new
 
-a.value #=> nil
-b.value #=> nil
+a.result #=> nil
+b.result #=> nil
 
 # Generate logical expressions as CNF
 logic = (a | b) & (~a | b) & (a | ~b)
@@ -84,8 +84,8 @@ solver = Ravensat::Solver.new
 solver.solve logic #=> true(SAT)
 
 # Refer to the satisfiability
-a.value #=> true
-b.value #=> true
+a.result #=> true
+b.result #=> true
 ```
 
 If you have SAT solver installed, you can write:
@@ -116,8 +116,8 @@ module Ravensat
     solver = Ravensat::Solver.new
     solver.solve logic #=> true
 
-    a.value #=> true
-    b.value #=> true
+    a.result #=> true
+    b.result #=> true
   end
 end
 ```
