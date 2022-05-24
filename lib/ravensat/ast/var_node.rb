@@ -13,5 +13,9 @@ module Ravensat
     def cnf?
       true
     end
+
+    def result
+      @value
+    end
   end
 end
