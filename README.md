@@ -1,8 +1,10 @@
 # Ravensat
 
-[![Ruby](https://github.com/matsuda0528/ravensat/actions/workflows/main.yml/badge.svg)](https://github.com/matsuda0528/ravensat/actions/workflows/main.yml)
+[![GitHub Actions](https://github.com/matsuda0528/ravensat/actions/workflows/main.yml/badge.svg)](https://github.com/matsuda0528/ravensat/actions/workflows/main.yml)
 [![Gem Version](https://badge.fury.io/rb/ravensat.svg)](https://badge.fury.io/rb/ravensat)
 [![LICENSE](https://img.shields.io/github/license/matsuda0528/ravensat)](https://opensource.org/licenses/MIT)
+
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages--brightgreen.svg?logo=github&style=social)](https://matsuda0528.github.io/ravensat/)
 
 Ravensat is an interface to SAT solver in Ruby.
 
