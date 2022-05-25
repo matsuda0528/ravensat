@@ -16,9 +16,6 @@ To solve SAT, we usually use SAT solver.
 Now, let's solve the following SAT with SAT solver.
 
 $$(p_{1} \lor \lnot p_{5} \lor p_{4}) \land (\lnot p_{1} \lor p_{5} \lor p_{3} \lor p_{4}) \land (\lnot p_{3} \lor \lnot p_{4})$$
-<!-- <p align="center"> -->
-<!-- <img src="https://latex.codecogs.com/svg.image?\inline&space;\large&space;\bg{white}(1&space;\lor&space;\lnot&space;5&space;\lor&space;4)&space;\land&space;(\lnot&space;1&space;\lor&space;5&space;\lor&space;3&space;\lor&space;4)&space;\land&space;(\lnot&space;3&space;\lor&space;\lnot&space;4)" style="background-color:white;"/> -->
-<!-- </p> -->
 
 Most SAT solvers are input in [DIMACS Format](https://www.cs.utexas.edu/users/moore/acl2/manuals/current/manual/index-seo.php/SATLINK____DIMACS).
 Converting the example SAT to DIMACS Format yields the following.
@@ -29,6 +26,7 @@ p cnf 5 3
 -1 5 3 4 0
 -3 -4 0
 ```
+
 DIMACS Format is widely distributed as an I/O format for SAT solver.
 However, when solving a large SAT, the following problems occur.
 - Need to create a file with thousands of lines.
@@ -36,16 +34,18 @@ However, when solving a large SAT, the following problems occur.
 
 To solve these problems, Ravensat can be used.
 Using Ravensat, propositional variables can be defined as local variables in Ruby.
+
 ```ruby
 fuji_is_the_highest_mountain_in_japan = Ravensat::VarNode.new
 ```
+
 In addition, you can write logical expressions intuitively.
+
 ```ruby
 x = Ravensat::VarNode.new
 y = Ravensat::VarNode.new
 
-# (x or y) and (not x or y)
-(x | y) & (~x | y)
+(x | y) & (~x | y) # (x or y) and (not x or y)
 ```
 
 
@@ -68,34 +68,32 @@ Or install it yourself as:
 ## Usage
 ### Basic Usage
 This is a basic usage example of the library.
+
 ```ruby
 require 'ravensat'
 
-# Define propositional variables
 a = Ravensat::VarNode.new
 b = Ravensat::VarNode.new
 
 a.result #=> nil
 b.result #=> nil
 
-# Generate logical expressions as CNF
 logic = (a | b) & (~a | b) & (a | ~b)
 
-# Launch SAT solver
 solver = Ravensat::Solver.new
 solver.solve logic #=> true(SAT)
 
-# Refer to the satisfiability
 a.result #=> true
 b.result #=> true
 ```
 
 If you have SAT solver installed, you can write:
+
 ```ruby
-# Launch SAT solver
 solver = Ravensat::Solver.new("<solver_name>")
 solver.solve logic
 ```
+
 The available solvers are assumed to be those that can be I/O in the DIMACS Format.
 At least, we have confirmed that it works properly with [MiniSat](https://github.com/niklasso/minisat).
 
@@ -126,6 +124,7 @@ end
 
 ### Extension Usage(CSP; Constraint Satisfaction Problem)
 It is possible to define integer variables and to describe some integer constraints.
+
 ```ruby
 require 'ravensat'
 
