@@ -1,5 +1,5 @@
 module Ravensat
-  module RavenClaw
+  module Claw
     def self.alo(bool_vars)
       bool_vars.reduce(:|)
     end

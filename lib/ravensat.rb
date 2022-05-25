@@ -11,7 +11,7 @@ module Ravensat
   require_relative ravensat + "/dimacs.rb"
 
   autoload :Solver, ravensat + '/solver.rb'
-  autoload :RavenClaw, ravensat + '/ravenclaw.rb'
+  autoload :Claw, ravensat + '/claw.rb'
   autoload :Extension, ravensat + '/extension.rb'
 
   autoload :Arcteryx, arcteryx + '/arcteryx.rb'
