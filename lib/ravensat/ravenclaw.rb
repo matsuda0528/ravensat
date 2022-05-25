@@ -15,5 +15,9 @@ module Ravensat
         int_var.reduce(:!=)
       end.reduce(:&)
     end
+
+    def self.all_only_one(*int_vars)
+      int_vars.map(&:only_one).reduce(:&)
+    end
   end
 end
