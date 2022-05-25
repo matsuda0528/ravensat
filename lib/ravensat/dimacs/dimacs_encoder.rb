@@ -11,7 +11,7 @@ module Ravensat
       dimacs_header = "p cnf #{formula.vars_size} #{formula.clauses_size}\n"
       dimacs_body = ""
       create_table(formula)
-      formula.each_with_clause do |node|
+      formula.each do |node|
         case node
         when AndNode then dimacs_body << " 0\n"
         when OrNode then dimacs_body << " "

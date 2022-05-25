@@ -7,22 +7,22 @@ module Ravensat
       @children = []
     end
 
-    def each
-      yield(self)
-      @children.each do |child|
-        child.each {|c| yield(c)}
-      end
-    end
+    # def each
+    #   yield(self)
+    #   @children.each do |child|
+    #     child.each {|c| yield(c)}
+    #   end
+    # end
 
-    def each_with_clause
+    def each
       case self
       when AndNode, OrNode
-        @children.first.each_with_clause{|c| yield(c)}
+        @children.first.each{|c| yield(c)}
         yield(self)
-        @children.last.each_with_clause{|c| yield(c)}
+        @children.last.each{|c| yield(c)}
       when NotNode
         yield(self)
-        @children.first.each_with_clause{|c| yield(c)}
+        @children.first.each{|c| yield(c)}
       when VarNode
         yield(self)
       end
