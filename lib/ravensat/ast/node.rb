@@ -28,6 +28,36 @@ module Ravensat
       end
     end
 
+    def each_speed
+      node_stack = [self]
+
+      until node_stack.empty?
+      end
+    end
+
+    def each_rubytree
+      return to_enum unless block_given?
+      node_stack = [self]
+
+      until node_stack.empty?
+        current_node = node_stack.shift
+        next unless current_node
+
+        yield current_node
+
+        node_stack = node_stack.concat(current_node.children)
+      end
+
+      self if block_given?
+    end
+
+    def each_naive
+      yield(self)
+      @children.each do |child|
+        child.each {|c| yield(c)}
+      end
+    end
+
     def &(object)
       AndNode.new(self, object)
     end
@@ -38,6 +68,9 @@ module Ravensat
 
     def to_s
       self.class.name
+    end
+
+    def to_dimacs
     end
 
     def cnf?

@@ -3,5 +3,9 @@ module Ravensat
     def ~@
       @children.first
     end
+
+    def to_dimacs
+      "-"
+    end
   end
 end
