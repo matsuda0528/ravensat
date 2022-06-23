@@ -24,7 +24,7 @@ module Ravensat
 
       decoder = DimacsDecoder.new
       model = @output_file.read.split("\n")
-      decoder.decode(model, encoder.name_table)
+      decoder.decode(model, cnf)
     end
 
   end
