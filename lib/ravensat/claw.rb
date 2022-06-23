@@ -12,20 +12,20 @@ module Ravensat
 
     def self.commander_amo(bool_vars)
       m = bool_vars.size / 2
-      introductory_variables = []
+      commander_variables = []
       formula = Ravensat::InitialNode.new
-      bool_vars.each_slice(2) do |e|
+      bool_vars.each_slice(2) do |g|
         c = Ravensat::VarNode.new
-        subset = e << ~c
+        subset = g << ~c
         formula &= pairwise_amo(subset)
         formula &= alo(subset)
-        introductory_variables << c
+        commander_variables << c
       end
 
       if m < 6
-        formula &= pairwise_amo(introductory_variables)
+        formula &= pairwise_amo(commander_variables)
       else
-        formula &= commander_amo(introductory_variables)
+        formula &= commander_amo(commander_variables)
       end
     end
 
