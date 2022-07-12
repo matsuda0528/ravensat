@@ -7,39 +7,12 @@ module Ravensat
       @children = []
     end
 
-    # def each
-    #   yield(self)
-    #   @children.each do |child|
-    #     child.each {|c| yield(c)}
-    #   end
-    # end
-
-    # def each
-    #   case self
-    #   when AndNode, OrNode
-    #     @children.first.each{|c| yield(c)}
-    #     yield(self)
-    #     @children.last.each{|c| yield(c)}
-    #   when NotNode
-    #     yield(self)
-    #     @children.first.each{|c| yield(c)}
-    #   when VarNode
-    #     yield(self)
-    #   end
-    # end
-
-    def each_DP
+    def each_by_descriptive
       node_stack = [[self, self.children.clone]] #[[parent, children], ...]
 
       until node_stack.empty?
         current_parent, current_children = node_stack.pop
         current_node = current_children.shift
-
-#         puts 'loop'
-#         puts "node_stack.size:#{node_stack.size}"
-#         puts "current_parent:#{current_parent.class}"
-#         puts "current_children.size:#{current_children.size}"
-#         puts "current_node:#{current_node.class}"
 
         case current_node
         when AndNode
@@ -86,13 +59,6 @@ module Ravensat
       end
 
       self if block_given?
-    end
-
-    def each_naive
-      yield(self)
-      @children.each do |child|
-        child.each {|c| yield(c)}
-      end
     end
 
     def &(object)

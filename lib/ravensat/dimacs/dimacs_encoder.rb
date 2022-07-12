@@ -12,7 +12,7 @@ module Ravensat
 
       set_dimacs_name(formula)
 
-      formula.each_DP do |node|
+      formula.each_by_descriptive do |node|
         dimacs_body << node.to_dimacs
       end
 
