@@ -1,7 +1,6 @@
 module Ravensat
   class DimacsDecoder
     def decode(model, cnf)
-      # inverted_name_table = name_table.invert
       prop_vars = cnf.vars
       case model.first
       when "SAT"

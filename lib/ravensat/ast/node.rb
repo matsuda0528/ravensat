@@ -41,7 +41,6 @@ module Ravensat
             node_stack.push [current_parent, current_children.clone]
           end
         end
-
       end
     end
 

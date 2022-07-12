@@ -10,6 +10,7 @@ module Ravensat
       end.reduce(:&)
     end
 
+    # NOTE: Klieber, W. and Kwon, G.: Efficient CNF Encoding for Selecting 1 from N Objects (2007).
     def self.commander_amo(bool_vars)
       m = bool_vars.size / 2
       commander_variables = []
