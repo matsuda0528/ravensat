@@ -1,24 +1,26 @@
-# Ravensat
-
 [![GitHub Actions](https://github.com/matsuda0528/ravensat/actions/workflows/main.yml/badge.svg)](https://github.com/matsuda0528/ravensat/actions/workflows/main.yml)
 [![Gem Version](https://badge.fury.io/rb/ravensat.svg)](https://badge.fury.io/rb/ravensat)
 [![LICENSE](https://img.shields.io/github/license/matsuda0528/ravensat)](https://opensource.org/licenses/MIT)
 
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages--brightgreen.svg?logo=github&style=social)](https://matsuda0528.github.io/ravensat/)
+<!-- [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages--brightgreen.svg?logo=github&style=social)](https://matsuda0528.github.io/ravensat/) -->
 
-Ravensat is an interface to SAT solver in Ruby.
+# Ravensat
 
+Ravensat provides an intuitive interface for working with SAT solver.
+SAT solver is a useful tool for solving various problems, but it is not user-friendly.
+Ravensat wraps the SAT solver and makes it easier to use.
 In order to use Ravensat, you need to install SAT solver.
 If you do not install SAT solver, it will use the one bundled in the gem.
 
 About [SAT](https://en.wikipedia.org/wiki/Boolean_satisfiability_problem), [SAT solver](https://en.wikipedia.org/wiki/SAT_solver)
 
 ## Description
-To solve SAT, we usually use SAT solver.
+To solve SAT(Boolean Satisfiability Problem), we usually use SAT solver.
 Now, let's solve the following SAT with SAT solver.
 
 $$(p_{1} \lor \lnot p_{5} \lor p_{4}) \land (\lnot p_{1} \lor p_{5} \lor p_{3} \lor p_{4}) \land (\lnot p_{3} \lor \lnot p_{4})$$
 
+To solve the above SAT, give it to the SAT solver.
 Most SAT solvers are input in [DIMACS Format](https://www.cs.utexas.edu/users/moore/acl2/manuals/current/manual/index-seo.php/SATLINK____DIMACS).
 Converting the example SAT to DIMACS Format yields the following.
 
@@ -34,22 +36,31 @@ However, when solving a large SAT, the following problems occur.
 - Need to create a file with thousands of lines.
 - Confusion arises because of the inability to name variables meaningfully.
 
-To solve these problems, Ravensat can be used.
+Therefore, we need an interface that can flexibly determine the names of variables and imperatively write loginal expressions.
+To achieve these requirements, we are developing Ravensat.
 Using Ravensat, propositional variables can be defined as local variables in Ruby.
 
 ```ruby
-fuji_is_the_highest_mountain_in_japan = Ravensat::VarNode.new
+John_is_a_male = Ravensat::VarNode.new
 ```
 
-In addition, you can write logical expressions intuitively.
+In addition, you can write logical expressions intuitively and imperatively.
 
 ```ruby
 x = Ravensat::VarNode.new
 y = Ravensat::VarNode.new
 
-(x | y) & (~x | y) # (x or y) and (not x or y)
+(x | y) & (~x | y)
 ```
 
+```ruby
+x = Ravensat::VarNode.new
+y = Ravensat::VarNode.new
+z = Ravensat::VarNode.new
+
+# (~x | ~y) & (~x | ~z) & (~y | ~z)
+Ravensat::Claw.pairwise_amo [x,y,z]
+```
 
 ## Installation
 
@@ -102,7 +113,7 @@ At least, we have confirmed that it works properly with [MiniSat](https://github
 If you do not use an external SAT solver, create a SAT solver object without any constructor arguments.
 In that case, **Arcteryx**(the very simple SAT solver built into Ravensat) will launch.
 
-### Extension Usage
+### Extension Usage(prototype)
 In Ravensat::Extension, C-like variable definitions are available.
 
 *Note: In Ravensat::Extension, all undefined variables and methods are caught by method_missing method.*
@@ -124,7 +135,6 @@ module Ravensat
 end
 ```
 
-### Extension Usage(CSP; Constraint Satisfaction Problem)
 It is possible to define integer variables and to describe some integer constraints.
 
 ```ruby
