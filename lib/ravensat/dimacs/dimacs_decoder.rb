@@ -4,18 +4,10 @@ module Ravensat
       prop_vars = cnf.vars
       case model.first
       when "SAT"
-        model.last.split.each do |e|
-          if e == '0'
-            next
-          elsif e[0] == "-"
-            dimacs_name = e.slice(1..-1)
-            var = prop_vars.find{|i| i.dimacs_name == dimacs_name}
-            var.value = false
-          else
-            dimacs_name = e
-            var = prop_vars.find{|i| i.dimacs_name == dimacs_name}
-            var.value = true
-          end
+        model.last.split.each_with_index do |e,i|
+          break if e == '0'
+          var = prop_vars[i]
+          var.value = !(e[0] == '-')
         end
         true
       when "UNSAT"
