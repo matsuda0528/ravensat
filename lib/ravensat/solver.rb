@@ -1,4 +1,5 @@
 require 'tempfile'
+require 'open3'
 
 module Ravensat
   class Solver
@@ -7,7 +8,7 @@ module Ravensat
       @name = default_solver_name
     end
 
-    def solve( cnf )
+    def solve( cnf , solver_log: false)
       encoder = DimacsEncoder.new
       @input_file = Tempfile.open(["ravensat",".cnf"])
       @output_file = Tempfile.open(["ravensat",".mdl"])
@@ -19,7 +20,8 @@ module Ravensat
       when "arcteryx"
         Arcteryx.solve(@input_file.to_path, @output_file.to_path)
       else
-        system("#{@name} #{@input_file.to_path} #{@output_file.to_path}")
+        result, err, status = Open3.capture3("#{@name} #{@input_file.to_path} #{@output_file.to_path}")
+        puts result if solver_log
       end
 
       decoder = DimacsDecoder.new
