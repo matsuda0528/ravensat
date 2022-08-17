@@ -14,6 +14,8 @@ module Ravensat
         current_parent, current_children = node_stack.pop
         current_node = current_children.shift
 
+        and_node_obj = AndNode.new
+
         case current_node
         when AndNode
           node_stack.push [current_parent, current_children.clone]
@@ -26,7 +28,7 @@ module Ravensat
           yield(current_node.children.first)
 
           if current_children.empty?
-            yield(node_stack.last.first)
+            yield(and_node_obj)
           else
             yield(current_parent)
             node_stack.push [current_parent, current_children.clone]
@@ -35,7 +37,7 @@ module Ravensat
           yield(current_node)
 
           if current_children.empty?
-            yield(node_stack.last.first)
+            yield(and_node_obj)
           else
             yield(current_parent)
             node_stack.push [current_parent, current_children.clone]
