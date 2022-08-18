@@ -90,7 +90,12 @@ module Ravensat
     end
 
     def clauses_size
-      self.count{|node| node.is_a? AndNode} + 1
+      cnt = 0
+      self.each_by_descriptive do |node|
+        cnt+=1 if node.is_a? AndNode
+      end
+      cnt
+      # self.count{|node| node.is_a? AndNode} + 1
     end
   end
 end
