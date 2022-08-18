@@ -5,6 +5,7 @@ module Ravensat
     end
 
     def self.pairwise_amo(bool_vars)
+      return bool_vars.first if bool_vars.size == 1
       bool_vars.combination(2).map do |e|
         e.map(&:~@).reduce(:|)
       end.reduce(:&)
@@ -12,6 +13,8 @@ module Ravensat
 
     # NOTE: Klieber, W. and Kwon, G.: Efficient CNF Encoding for Selecting 1 from N Objects (2007).
     def self.commander_amo(bool_vars)
+      return bool_vars.first if bool_vars.size == 1
+      # XXX: Operator unknown if bool_vars.size is very small.
       m = bool_vars.size / 2
       commander_variables = []
       formula = Ravensat::InitialNode.new
