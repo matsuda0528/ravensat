@@ -31,7 +31,7 @@ RSpec.describe Ravensat do
   end
 
   it "generates DIMACS Format" do
-    formula = (p1 | p2 | ~p3) & (~p1 | ~p2) & p1 & p3
-    expext(encoder.to_dimacs formula).to eq "p cnf 3 4\n1 2 -3 0\n-1 -2 0\n1 0\n3 0"
+    formula = (p1 | p2 | ~p3) & (~p1 | ~p2) & p1 & p2
+    expect(encoder.to_dimacs formula).to eq "p cnf 3 4\n1 2 -3 0\n-1 -2 0\n1 0\n2 0\n"
   end
 end
