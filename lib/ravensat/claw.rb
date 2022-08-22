@@ -4,6 +4,12 @@ module Ravensat
       bool_vars.reduce(:|)
     end
 
+    def self.at_most_k(bool_vars, k)
+      bool_vars.combination(k+1).map do |e|
+        e.map(&:~@).reduce(:|)
+      end.reduce(:&)
+    end
+
     def self.at_least_k(bool_vars, k)
       bool_vars.combination(k-1).map do |e|
         alo(bool_vars - e)
