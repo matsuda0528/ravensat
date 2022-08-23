@@ -1,16 +1,19 @@
 module Ravensat
   module Claw
     def self.alo(bool_vars)
+      return bool_vars.first if bool_vars.size == 1
       bool_vars.reduce(:|)
     end
 
     def self.at_most_k(bool_vars, k)
+      return bool_vars.first if bool_vars.size == 1
       bool_vars.combination(k+1).map do |e|
         e.map(&:~@).reduce(:|)
       end.reduce(:&)
     end
 
     def self.at_least_k(bool_vars, k)
+      return bool_vars.first if bool_vars.size == 1
       bool_vars.combination(k-1).map do |e|
         alo(bool_vars - e)
       end.reduce(:&)
