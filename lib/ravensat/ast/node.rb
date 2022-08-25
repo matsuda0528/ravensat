@@ -64,11 +64,15 @@ module Ravensat
 
     def &(object)
       raise TypeError.new("#{object.class} can't be coerced into Ravensat::Node") unless object.is_a? Node
+      return self if object.is_a? NilNode
+
       AndNode.new(self, object)
     end
 
     def |(object)
       raise TypeError.new("#{object.class} can't be coerced into Ravensat::Node") unless object.is_a? Node
+      return self if object.is_a? NilNode
+
       OrNode.new(self, object)
     end
 

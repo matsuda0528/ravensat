@@ -1,26 +1,26 @@
 module Ravensat
   module Claw
     def self.alo(bool_vars)
-      return bool_vars.first if bool_vars.size == 1
+      return Ravensat::NilNode.new if bool_vars.size == 1
       bool_vars.reduce(:|)
     end
 
     def self.at_most_k(bool_vars, k)
-      return bool_vars.first if bool_vars.size == 1
+      return Ravensat::NilNode.new if bool_vars.size == 1
       bool_vars.combination(k+1).map do |e|
         e.map(&:~@).reduce(:|)
       end.reduce(:&)
     end
 
     def self.at_least_k(bool_vars, k)
-      return bool_vars.first if bool_vars.size == 1
+      return Ravensat::NilNode.new if bool_vars.size == 1
       bool_vars.combination(k-1).map do |e|
         alo(bool_vars - e)
       end.reduce(:&)
     end
 
     def self.pairwise_amo(bool_vars)
-      return bool_vars.first if bool_vars.size == 1
+      return Ravensat::NilNode.new if bool_vars.size == 1
       bool_vars.combination(2).map do |e|
         e.map(&:~@).reduce(:|)
       end.reduce(:&)
@@ -28,7 +28,7 @@ module Ravensat
 
     # NOTE: Klieber, W. and Kwon, G.: Efficient CNF Encoding for Selecting 1 from N Objects (2007).
     def self.commander_amo(bool_vars)
-      return bool_vars.first if bool_vars.size == 1
+      return Ravensat::NilNode.new if bool_vars.size == 1
       # XXX: Operator unknown if bool_vars.size is very small.
       m = bool_vars.size / 2
       commander_variables = []
