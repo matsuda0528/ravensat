@@ -16,5 +16,9 @@ module Ravensat
     def to_dimacs
       " "
     end
+
+    def eval
+      @children.map(&:eval).reduce(:|)
+    end
   end
 end

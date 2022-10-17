@@ -87,6 +87,9 @@ module Ravensat
       @children.map(&:cnf?).reduce(:&)
     end
 
+    def eval
+    end
+
     def vars
       self.select{|node| node.is_a? VarNode}.uniq
     end

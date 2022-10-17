@@ -22,5 +22,9 @@ module Ravensat
     def to_dimacs
       @dimacs_name
     end
+
+    def eval
+      @value
+    end
   end
 end
