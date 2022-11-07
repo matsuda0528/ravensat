@@ -1,6 +1,13 @@
 module Ravensat
   module Claw
-    def self.alo(bool_vars)
+    def self.at_most_one(bool_vars)
+      return Ravensat::NilNode.new if bool_vars.size == 1
+      bool_vars.combination(2).map do |e|
+        e.map(&:~@).reduce(:|)
+      end.reduce(:&)
+    end
+
+    def self.at_least_one(bool_vars)
       return Ravensat::NilNode.new if bool_vars.size == 1
       bool_vars.reduce(:|)
     end
@@ -15,19 +22,13 @@ module Ravensat
     def self.at_least_k(bool_vars, k)
       return Ravensat::NilNode.new if bool_vars.size == 1
       bool_vars.combination(k-1).map do |e|
-        alo(bool_vars - e)
+        at_least_one(bool_vars - e)
       end.reduce(:&)
     end
 
-    def self.pairwise_amo(bool_vars)
-      return Ravensat::NilNode.new if bool_vars.size == 1
-      bool_vars.combination(2).map do |e|
-        e.map(&:~@).reduce(:|)
-      end.reduce(:&)
-    end
 
     # NOTE: Klieber, W. and Kwon, G.: Efficient CNF Encoding for Selecting 1 from N Objects (2007).
-    def self.commander_amo(bool_vars)
+    def self.commander_at_most_one(bool_vars)
       return Ravensat::NilNode.new if bool_vars.size == 1
       # XXX: Operator unknown if bool_vars.size is very small.
       m = bool_vars.size / 2
@@ -36,19 +37,19 @@ module Ravensat
       bool_vars.each_slice(2) do |g|
         c = Ravensat::VarNode.new
         subset = g << ~c
-        formula &= pairwise_amo(subset)
-        formula &= alo(subset)
+        formula &= at_most_one(subset)
+        formula &= at_least_one(subset)
         commander_variables << c
       end
 
       if m < 6
-        formula &= pairwise_amo(commander_variables)
+        formula &= at_most_one(commander_variables)
       else
-        formula &= commander_amo(commander_variables)
+        formula &= commander_at_most_one(commander_variables)
       end
     end
 
-    def self.commander_amk(bool_vars, k)
+    def self.commander_at_most_k(bool_vars, k)
       return Ravensat::NilNode.new if bool_vars.size == 1
       group_size = k + 2
       commander_variables = []
@@ -70,13 +71,13 @@ module Ravensat
 
     def self.exactly_one(bool_vars)
       formula = Ravensat::InitialNode.new
-      formula &= commander_amo(bool_vars)
-      formula &= alo(bool_vars)
+      formula &= commander_at_most_one(bool_vars)
+      formula &= at_least_one(bool_vars)
     end
 
     def self.exactly_k(bool_vars, k)
       formula = Ravensat::InitialNode.new
-      formula &= commander_amk(bool_vars, k)
+      formula &= commander_at_most_k(bool_vars, k)
       formula &= at_least_k(bool_vars, k)
     end
 
@@ -89,7 +90,5 @@ module Ravensat
     def self.all_only_one(*int_vars)
       int_vars.map(&:only_one).reduce(:&)
     end
-
-    # alias :amo :pairwise_amo
   end
 end
