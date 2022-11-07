@@ -51,6 +51,7 @@ module Ravensat
 
     def self.commander_at_most_k(bool_vars, k)
       return Ravensat::NilNode.new if bool_vars.size == 1
+      return commander_at_most_one(bool_vars) if k == 1
       group_size = k + 2
       commander_variables = []
       formula = Ravensat::InitialNode.new
