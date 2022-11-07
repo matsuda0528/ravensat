@@ -48,6 +48,26 @@ module Ravensat
       end
     end
 
+    def self.commander_amk(bool_vars, k)
+      return Ravensat::NilNode.new if bool_vars.size == 1
+      group_size = k + 2
+      commander_variables = []
+      formula = Ravensat::InitialNode.new
+
+      bool_vars.each_slice(group_size) do |g|
+        cmds = Array.new(k){Ravensat::VarNode.new}
+        subset = g + cmds.map(&:~)
+        formula &= at_most_k(subset, k)
+        formula &= at_least_k(subset, k)
+        cmds.each_cons(2) do |e1, e2|
+          formula &= ~e1 | e2
+        end
+        commander_variables += cmds
+      end
+
+      formula &= at_most_k(commander_variables, k)
+    end
+
     def self.all_different(*int_vars)
       int_vars.combination(2).map do |int_var|
         int_var.reduce(:!=)
