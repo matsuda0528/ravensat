@@ -68,6 +68,18 @@ module Ravensat
       formula &= at_most_k(commander_variables, k)
     end
 
+    def self.exactly_one(bool_vars)
+      formula = Ravensat::InitialNode.new
+      formula &= commander_amo(bool_vars)
+      formula &= alo(bool_vars)
+    end
+
+    def self.exactly_k(bool_vars, k)
+      formula = Ravensat::InitialNode.new
+      formula &= commander_amk(bool_vars, k)
+      formula &= at_least_k(bool_vars, k)
+    end
+
     def self.all_different(*int_vars)
       int_vars.combination(2).map do |int_var|
         int_var.reduce(:!=)
